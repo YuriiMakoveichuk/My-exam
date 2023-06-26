@@ -2,40 +2,16 @@ import ProductListItem from './ProductListItem'
 import productsArray from 'utils/productsArray'
 import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
-import { count } from 'console'
 
 type Props = {
     catrData: {
         totalPrice: number
     }
     addProductToCart: (price: number) => void
-
-    playIn: {
-        count: number
-    }
-    changeCurrency: (price: number) => void
 }
-
-const ProductList = ({
-    catrData,
-    addProductToCart,
-    playIn,
-    changeCurrency,
-}: Props) => {
+const ProductList = ({ catrData, addProductToCart }: Props) => {
     const [currency, setCurrency] = useState<string>('USD')
 
-    const changeCurrencyPln = () => {
-        setCurrency((prevState) => (prevState === 'USD' ? 'PLN' : 'PLN'))
-    }
-    const changeCurrencyUsd = () => {
-        setCurrency((prevState) => (prevState === 'PLN' ? 'USD' : 'USD'))
-    }
-    const changeCurrencyEur = () => {
-        setCurrency((prevState) => (prevState === 'PLN' ? 'EUR' : 'EUR'))
-    }
-    const changeCurrencyUah = () => {
-        setCurrency((prevState) => (prevState === 'PLN' ? 'UAH' : 'UAH'))
-    }
     return (
         <>
             <Typography
@@ -46,35 +22,27 @@ const ProductList = ({
             >
                 Our Shop Page
             </Typography>
-            <Typography align="center" margin="0 0 40px">
-                <ButtonGroup
-                    variant="outlined"
-                    aria-label="outlined button group"
-                >
-                    <Button
-                        // onClick={() => changeCurrency(760)}
-                        onClick={() => changeCurrencyUsd()}
-                    >
-                        USD
-                    </Button>
 
-                    <Button onClick={() => changeCurrencyEur()}>EUR</Button>
-                    <Button onClick={() => changeCurrencyUah()}>UAH</Button>
-                    <Button onClick={() => changeCurrencyPln()}>PLN</Button>
-                </ButtonGroup>
-            </Typography>
+            <Button
+                // onClick={() => changeCurrency(760)}
+                onClick={() => setCurrency('USD')}
+            >
+                USD
+            </Button>
+
+            <Button onClick={() => setCurrency('EUR')}>EUR</Button>
+            <Button onClick={() => setCurrency('UAH')}>UAH</Button>
+            <Button onClick={() => setCurrency('PLN')}>PLN</Button>
 
             <Grid container spacing={12}>
                 {productsArray.map(({ id, title, description, price }) => (
-                    <Grid item md={4}>
+                    <Grid item md={4} key={id}>
                         <ProductListItem
                             id={id}
                             title={title}
                             description={description}
                             price={price}
                             addProductToCart={addProductToCart}
-                            changeCurrency={changeCurrency}
-                            playIn={playIn}
                             currency={currency}
                         />
                     </Grid>

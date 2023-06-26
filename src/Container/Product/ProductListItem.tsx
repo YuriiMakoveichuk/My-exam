@@ -1,6 +1,5 @@
 import { Button, CardContent, Typography } from '@mui/material'
 import Card from '@mui/material/Card'
-import { count } from 'console'
 
 type Props = {
     id: number
@@ -8,10 +7,7 @@ type Props = {
     description: string
     price: number
     addProductToCart: (price: number) => void
-    changeCurrency: (price: number) => void
-    playIn: {
-        count: number
-    }
+
     currency: string
 }
 
@@ -21,7 +17,6 @@ const ProductListItem = ({
     description,
     price,
     addProductToCart,
-    playIn,
     currency,
 }: Props) => {
     return (
@@ -50,7 +45,7 @@ const ProductListItem = ({
                         align="center"
                         margin="0 0 20px"
                     >
-                        {currency} : <div> {playIn.count}</div>
+                        {currency} : <div> {price}</div>
                     </Typography>
                     <Typography align="center">
                         <Button
