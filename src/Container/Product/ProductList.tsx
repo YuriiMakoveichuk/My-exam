@@ -1,6 +1,6 @@
 import ProductListItem from './ProductListItem'
 import productsArray from 'utils/productsArray'
-import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { useState } from 'react'
 
 type Props = {
