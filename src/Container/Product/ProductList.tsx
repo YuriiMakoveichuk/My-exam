@@ -1,7 +1,7 @@
+import { useState } from 'react'
+import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
 import ProductListItem from './ProductListItem'
 import productsArray from 'utils/productsArray'
-import { Button, Grid, Typography } from '@mui/material'
-import { useState } from 'react'
 
 type Props = {
     catrData: {
@@ -9,8 +9,23 @@ type Props = {
     }
     addProductToCart: (price: number) => void
 }
+
+type Currency = {
+    count: number
+    class: string
+}
+
 const ProductList = ({ catrData, addProductToCart }: Props) => {
-    const [currency, setCurrency] = useState<string>('USD')
+    const [currency, setCurrency] = useState<Currency>({
+        count: 1,
+        class: 'USD',
+    })
+    const addCurrency = (play: number, muy: string) => {
+        setCurrency(() => ({
+            count: play,
+            class: muy,
+        }))
+    }
 
     return (
         <>
@@ -22,18 +37,20 @@ const ProductList = ({ catrData, addProductToCart }: Props) => {
             >
                 Our Shop Page
             </Typography>
+            <Typography align="center" margin="50px 0 ">
+                <ButtonGroup>
+                    <Button onClick={() => addCurrency(1, 'USD')}>USD</Button>
 
-            <Button
-                // onClick={() => changeCurrency(760)}
-                onClick={() => setCurrency('USD')}
-            >
-                USD
-            </Button>
+                    <Button onClick={() => addCurrency(0.92, 'EUR')}>
+                        EUR
+                    </Button>
+                    <Button onClick={() => addCurrency(37.1, 'UAH')}>
+                        UAH
+                    </Button>
 
-            <Button onClick={() => setCurrency('EUR')}>EUR</Button>
-            <Button onClick={() => setCurrency('UAH')}>UAH</Button>
-            <Button onClick={() => setCurrency('PLN')}>PLN</Button>
-
+                    <Button onClick={() => addCurrency(4, 'PLN')}>PLN</Button>
+                </ButtonGroup>
+            </Typography>
             <Grid container spacing={12}>
                 {productsArray.map(({ id, title, description, price }) => (
                     <Grid item md={4} key={id}>
@@ -49,7 +66,7 @@ const ProductList = ({ catrData, addProductToCart }: Props) => {
                 ))}
             </Grid>
             <Typography variant="h6" align="center" margin="30px 0 0">
-                Total: {catrData.totalPrice}
+                Total: {catrData.totalPrice * currency.count}
             </Typography>
         </>
     )

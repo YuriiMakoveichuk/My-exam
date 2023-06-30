@@ -7,8 +7,10 @@ type Props = {
     description: string
     price: number
     addProductToCart: (price: number) => void
-
-    currency: string
+    currency: {
+        count: number
+        class: string
+    }
 }
 
 const ProductListItem = ({
@@ -16,8 +18,8 @@ const ProductListItem = ({
     title,
     description,
     price,
-    addProductToCart,
     currency,
+    addProductToCart,
 }: Props) => {
     return (
         <>
@@ -45,7 +47,9 @@ const ProductListItem = ({
                         align="center"
                         margin="0 0 20px"
                     >
-                        {currency} : <div> {price}</div>
+                        <div key={id}>
+                            {currency.class} : {price * currency.count}
+                        </div>
                     </Typography>
                     <Typography align="center">
                         <Button

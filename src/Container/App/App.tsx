@@ -1,20 +1,19 @@
+import { useState } from 'react'
 import { Container } from '@mui/material'
 import ProductList from 'Container/Product/ProductList'
 
-import { useState } from 'react'
-
-type catrData = {
+type CatrData = {
     totalPrice: number
 }
 
 const App = () => {
-    const [catrData, setCartData] = useState<catrData>({
+    const [catrData, setCartData] = useState<CatrData>({
         totalPrice: 0,
     })
 
-    const addProductToCart = (count: number) => {
+    const addProductToCart = (price: number) => {
         setCartData((prevState) => ({
-            totalPrice: prevState.totalPrice + count,
+            totalPrice: prevState.totalPrice + price,
         }))
     }
 
